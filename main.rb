@@ -1,35 +1,38 @@
 # frozen_string_literal: true
 
-describe 'User view object' do
-  around(:context) do |describe_block|
-    # Fake class for Rails ActiveRecord model
-    FakeUser = Struct.new(:name) do
-      # Imitate ActiveRecord::base_class
-      def self.base_class
-        self.class
-      end
-
-      # Imitate ActiveRecord::primary_key
-      def self.primary_key
-        :id
-      end
-
-      # Imitate ActiveRecord#[]
-      def [](_); end
-
-      # Imitate Rails Object#present?
-      def present?
-        true
-      end
+# lambda to create FakeUser for any kind rspe scope: whole suit, context or test
+test_with_fake_user = lambda do |describe_block|
+  # Fake class for Rails ActiveRecord model
+  FakeUser = Struct.new(:name) do
+    # Imitate ActiveRecord::base_class
+    def self.base_class
+      self.class
     end
 
-    # run specs
-    describe_block.run
+    # Imitate ActiveRecord::primary_key
+    def self.primary_key
+      :id
+    end
 
-    # remove constant
-    Object.send(:remove_const, :FakeUser)
-    throw 'Fake constant not removed' if Object.constants.include?(:FakeUser)
+    # Imitate ActiveRecord#[]
+    def [](_); end
+
+    # Imitate Rails Object#present?
+    def present?
+      true
+    end
   end
+
+  # run specs
+  describe_block.run
+
+  # remove constant
+  Object.send(:remove_const, :FakeUser)
+  throw 'Fake constant not removed' if Object.constants.include?(:FakeUser)
+end
+
+describe 'User view object' do
+  around(:context, &test_with_fake_user)
 
   it 'returns User name' do
     user = FakeUser.new('Dmitry')
