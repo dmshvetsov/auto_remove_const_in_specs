@@ -2,4 +2,4 @@
 
 To run example:
 
-    $ rspec main.rb
+    $ rake
