@@ -19,7 +19,7 @@ RSpec.describe 'Auto remove declared in spec constants' do
     expect(Object.constants).to_not include(:Greeter)
   end
 
-  it 'without the type flag do nothing' do
+  it 'without the remove_constflag does nothing' do
     FakeThing = Struct.new(:name)
     expect(Object.constants).to include(:FakeThing)
   end
@@ -59,7 +59,7 @@ RSpec.describe 'Auto remove modules declared in spec' do
     expect(Object.constants).to_not include(:Fake)
   end
 
-  it 'without the type flag do nothing' do
+  it 'without the remove_const flag does nothing' do
     module Whatever
     end
     expect(Object.constants).to include(:Whatever)
