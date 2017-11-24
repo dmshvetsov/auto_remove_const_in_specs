@@ -1,5 +1,9 @@
 # Automatically remove created constants during test execution
 
-To run example:
+Setup the project:
+
+    $ bundle install
+
+Run the example:
 
     $ rake
