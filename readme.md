@@ -1,4 +1,4 @@
-# Fake constant declaration for testing with RSpec in ruby
+# Automatically remove created constants during test execution
 
 To run example:
 
